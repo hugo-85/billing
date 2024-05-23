@@ -1,5 +1,6 @@
 import { ChangeEvent, FC } from "react";
 import { Box } from "@mui/material";
+import { BillFooterBox } from "./billFooter.styles";
 
 interface BillFooterProps {
   note: string;
@@ -21,32 +22,48 @@ const BillFooter: FC<BillFooterProps> = ({
   handleChangeSign,
 }) => {
   return (
-    <Box className="footer">
+    <BillFooterBox>
       <Box className="title customText">NOTAS</Box>
       <Box className="note">
-        <textarea name="note" value={note} onChange={handleChange} rows={3} />
+        <textarea
+          aria-label="note"
+          name="note"
+          value={note}
+          onChange={handleChange}
+          rows={3}
+        />
       </Box>
       <Box className="totals">
         <Box className="total-title">
           <span>Sub. Total:</span>
         </Box>
         <Box>
-          <input name="subTotal" value={`$ ${subTotal}`} disabled />
+          <input
+            aria-label="sub-total"
+            name="subTotal"
+            value={`$ ${subTotal}`}
+            disabled
+          />
         </Box>
         <Box className="total-title">
           <span>Seña:</span>
         </Box>
         <Box>
-          <input name="sign" value={`$ ${sign}`} onChange={handleChangeSign} />
+          <input
+            aria-label="sign"
+            name="sign"
+            value={`$ ${sign}`}
+            onChange={handleChangeSign}
+          />
         </Box>
         <Box className="total-title">
           <span>Saldo Restante:</span>
         </Box>
         <Box>
-          <input name="rest" value={`$ ${total}`} disabled />
+          <input aria-label="rest" name="rest" value={`$ ${total}`} disabled />
         </Box>
       </Box>
-    </Box>
+    </BillFooterBox>
   );
 };
 

@@ -1,8 +1,10 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import Image from "next/image";
-import CustomDatePicker from "@/app/customs/CustomDatePicker";
 import { Box } from "@mui/material";
 import { Dayjs } from "dayjs";
+import CustomDatePicker from "@/app/customs/CustomDatePicker";
+import { BillHeaderBox } from "./billHeader.styles";
+import { weekdays } from "@/app/utils/helpers";
 
 interface BillHeaderProps {
   id?: number;
@@ -28,15 +30,6 @@ const BillHeader: FC<BillHeaderProps> = ({
   const [dayOfTheWeek, setDayOfTheWeek] = useState("");
   const [deliveryDays, setDeliveryDays] = useState<number>(0);
 
-  var weekdays = new Array(7);
-  weekdays[0] = "Domingo";
-  weekdays[1] = "Lunes";
-  weekdays[2] = "Martes";
-  weekdays[3] = "Miercoles";
-  weekdays[4] = "Jueves";
-  weekdays[5] = "Viernes";
-  weekdays[6] = "Sabado";
-
   useEffect(() => {
     if (deliveryDate) {
       setDayOfTheWeek(weekdays[deliveryDate.get("day")]);
@@ -58,8 +51,6 @@ const BillHeader: FC<BillHeaderProps> = ({
             : newValue.diff(billDate, "day") + 1;
 
           setDeliveryDays(restDays);
-          //   setValues({ ...values, deliveryDate: newValue });
-          //   setUpdated({ ...updated, delivery_date: newValue });
           updateValues("deliveryDate", newValue);
         }
       } catch (e) {
@@ -68,13 +59,13 @@ const BillHeader: FC<BillHeaderProps> = ({
     };
 
   return (
-    <Box className="header">
+    <BillHeaderBox>
       <Box className="headerLogo">
         <Box className="logo">
           <Image
             width={300}
             height={160}
-            alt="banbino-logo"
+            alt="bill-logo"
             src="/imgs/logo.png"
           />
         </Box>
@@ -83,13 +74,7 @@ const BillHeader: FC<BillHeaderProps> = ({
       <Box className="headerData">
         <Box className="staticData">
           <span className="customText">Fecha Hoy:</span>
-          <span>
-            {billDate.get("date") +
-              "/" +
-              (billDate.get("month") + 1) +
-              "/" +
-              billDate.get("year")}
-          </span>
+          <span>{billDate.format("DD/MM/YYYY")}</span>
         </Box>
         <Box className="staticData2">
           <span className="customText">Numero:</span>
@@ -108,17 +93,22 @@ const BillHeader: FC<BillHeaderProps> = ({
         <Box className="mid2">
           <Box className="customText">Hora:</Box>
           <Box>
-            <input name="hour" value={hour} onChange={handleChange} />
+            <input
+              name="hour"
+              aria-label="hour"
+              value={hour}
+              onChange={handleChange}
+            />
           </Box>
         </Box>
         <Box className="full">
           <span className="customText">{`La entrega sera el dia: ${dayOfTheWeek}`}</span>
         </Box>
         <Box className="full">
-          <span className="customText">{`RESTAN: ${deliveryDays} PARA RETIRAR SU PEDIDO`}</span>
+          <span className="customText">{`RESTAN: ${deliveryDays} DIAS PARA RETIRAR SU PEDIDO`}</span>
         </Box>
       </Box>
-    </Box>
+    </BillHeaderBox>
   );
 };
 

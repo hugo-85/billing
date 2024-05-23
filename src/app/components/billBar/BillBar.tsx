@@ -4,12 +4,12 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
 import { Dayjs } from "dayjs";
 import { billFormType } from "@/app/types/bills";
+import { BillBarBox } from "./billBar.styles";
 
 interface BillBarProps {
   id: number | null;
@@ -67,7 +67,7 @@ const BillBar: FC<BillBarProps> = ({
   };
 
   return (
-    <Paper className="actions no-print">
+    <BillBarBox className="no-print">
       <FormControl fullWidth>
         <InputLabel id="state">Estado</InputLabel>
         <Select
@@ -96,7 +96,7 @@ const BillBar: FC<BillBarProps> = ({
           Descargar
         </Button>
       )}
-    </Paper>
+    </BillBarBox>
   );
 };
 
