@@ -9,6 +9,8 @@ import styles from "./page.module.css";
 import Sidebar from "./components/sidebar/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Suspense } from "react";
+import LoadingPage from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +34,9 @@ export default function RootLayout({
               <aside className={styles.sideBar}>
                 <Sidebar />
               </aside>
-              <main className={styles.mainContent}>{children}</main>
+              <main className={styles.mainContent}>
+                <Suspense fallback={<LoadingPage />}>{children}</Suspense>
+              </main>
             </Box>
             <ToastContainer
               position="top-right"

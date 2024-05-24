@@ -1,3 +1,10 @@
+import { Stack } from "@mui/material";
+import SvgLogo from "./components/Logo/Logo";
+
 export default function Home() {
-  return <h1>H O M E</h1>;
+  return (
+    <Stack justifyContent={"center"} height={"100%"}>
+      <SvgLogo fill="#ffffff" />
+    </Stack>
+  );
 }
